@@ -1,16 +1,17 @@
 services:
-  - type: web
+  - type: static
     name: cutmix
-    runtime: static
-    buildCommand: npm install && npm run build
+    buildCommand: npm install --legacy-peer-deps && npx vite build
     staticPublishPath: ./dist
     envVars:
       - key: NODE_VERSION
-        value: 20
-    headers:
-      - path: /*
-        name: X-Frame-Options
-        value: SAMEORIGIN
+        value: "20"
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
+      - key: VITE_GROQ_API_KEY
+        sync: false
     routes:
       - type: rewrite
         source: /*
